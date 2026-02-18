@@ -1,8 +1,9 @@
-FROM python:3.10
+# Use official TensorFlow CPU image (already has tensorflow installed)
+FROM tensorflow/tensorflow:2.18.1
 
 WORKDIR /app
 
-# Install system libs required for opencv & deepface
+# Install system libraries needed for OpenCV / DeepFace
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -12,7 +13,10 @@ RUN apt-get update && apt-get install -y \
 
 COPY requirements.txt .
 
-RUN pip install --upgrade pip==24.0
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Install remaining dependencies (EXCLUDE tensorflow)
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
