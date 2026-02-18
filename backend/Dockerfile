@@ -1,8 +1,8 @@
-FROM python:3.10-slim
+FROM python:3.10
 
 WORKDIR /app
 
-# Install system dependencies required for deepface / opencv
+# Install system libs required for opencv & deepface
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY requirements.txt .
 
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip==24.0
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
